@@ -16,12 +16,18 @@ name: Klee
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  # Lets artefact generation run for forked PR updates without requiring a
+  # maintainer to approve the pull_request workflow. The action never checks
+  # out or executes PR code.
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 permissions:
   id-token: write
 
 jobs:
   generate-artefact:
+    if: github.event_name == 'pull_request' || (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.fork)
     runs-on: ubuntu-latest
     steps:
       - uses: saasathon-2/integrations/github@main

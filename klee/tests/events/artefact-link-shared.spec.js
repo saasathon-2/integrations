@@ -31,6 +31,24 @@ describe('artefact link shared event', () => {
     assert(callArgs.unfurls[sharedUrl].blocks.some((block) => block.type === 'image'));
   });
 
+  it('unfurls a non-shared-format artefact link the same way', async () => {
+    const nonSharedUrl = 'https://www.orcastrate.net/?artefact=4868e69f-ff8c-4d64-922f-363f39357fe9';
+
+    await artefactLinkSharedCallback({
+      event: {
+        channel: 'C123',
+        message_ts: '1234.5678',
+        links: [{ url: nonSharedUrl, domain: 'orcastrate.net' }],
+      },
+      client: fakeClient,
+      logger: fakeLogger,
+    });
+
+    assert.strictEqual(fakeClient.chat.unfurl.mock.callCount(), 1);
+    const callArgs = fakeClient.chat.unfurl.mock.calls[0].arguments[0];
+    assert(callArgs.unfurls[nonSharedUrl].blocks.some((block) => block.type === 'image'));
+  });
+
   it('does nothing when no link matches an artefact', async () => {
     await artefactLinkSharedCallback({
       event: {

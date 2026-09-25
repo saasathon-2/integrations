@@ -8,7 +8,9 @@ const artefactLinkSharedCallback = async ({ event, client, logger }) => {
     for (const link of event.links) {
       const resolvedUrl = resolveArtefactUrl(link.url);
       if (resolvedUrl) {
-        unfurls[link.url] = { blocks: renderPageBlocks(resolvedUrl, 'Artefact preview') };
+        unfurls[link.url] = {
+          blocks: renderPageBlocks(resolvedUrl, 'Artefact preview'),
+        };
       }
     }
 

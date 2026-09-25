@@ -33,13 +33,38 @@ describe('artefact command', () => {
     assert.strictEqual(callArgs.blocks.length, 2);
     assert.strictEqual(callArgs.blocks[0].type, 'image');
     assert.strictEqual(callArgs.blocks[1].type, 'actions');
-    assert(callArgs.blocks[0].image_url.includes('4868e69f-ff8c-4d64-922f-363f39357fe9'));
+    assert(
+      callArgs.blocks[0].image_url.includes(
+        'https://www.orcastrate.net/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9',
+      ),
+    );
+    assert.strictEqual(
+      callArgs.blocks[1].elements[0].url,
+      'https://www.orcastrate.net/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9',
+    );
   });
 
   it('renders the artefact url when given the full url', async () => {
     await artefactCommandCallback({
       command: {
         text: 'https://www.orcastrate.net/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9',
+      },
+      ack: fakeAck,
+      respond: fakeRespond,
+      logger: fakeLogger,
+    });
+
+    const callArgs = fakeRespond.mock.calls[0].arguments[0];
+    assert.strictEqual(
+      callArgs.text,
+      'https://www.orcastrate.net/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9',
+    );
+  });
+
+  it('renders the artefact url when given the non-shared url', async () => {
+    await artefactCommandCallback({
+      command: {
+        text: 'https://www.orcastrate.net/?artefact=4868e69f-ff8c-4d64-922f-363f39357fe9',
       },
       ack: fakeAck,
       respond: fakeRespond,

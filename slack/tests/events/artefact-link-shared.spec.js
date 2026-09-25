@@ -8,7 +8,7 @@ describe('artefact link shared event', () => {
 
   beforeEach(() => {
     fakeClient = { chat: { unfurl: mock.fn() } };
-    fakeLogger = { error: mock.fn() };
+    fakeLogger = { error: mock.fn(), info: mock.fn() };
   });
 
   it('unfurls a shared artefact link with the preview blocks', async () => {
@@ -81,6 +81,6 @@ describe('artefact link shared event', () => {
       logger: fakeLogger,
     });
 
-    assert.deepEqual(fakeLogger.error.mock.calls[0].arguments, [testError]);
+    assert.deepEqual(fakeLogger.error.mock.calls[0].arguments, ['Could not unfurl Klee link', testError]);
   });
 });

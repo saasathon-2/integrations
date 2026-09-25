@@ -14,6 +14,8 @@ const artefactLinkSharedCallback = async ({ event, client, logger }) => {
       }
     }
 
+    const urls = event.links.map((link) => link.url);
+    logger.info(`link_shared: ${Object.keys(unfurls).length} of ${urls.length} links are Klee artefacts`, urls);
     if (Object.keys(unfurls).length === 0) {
       return;
     }
@@ -24,7 +26,8 @@ const artefactLinkSharedCallback = async ({ event, client, logger }) => {
       unfurls,
     });
   } catch (error) {
-    logger.error(error);
+    // Slack's reason (e.g. missing_scope, cannot_unfurl_url) lives on error.data.
+    logger.error('Could not unfurl Klee link', error.data ?? error);
   }
 };
 

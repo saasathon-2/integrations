@@ -8,7 +8,7 @@ const artefactCommandCallback = async ({ command, ack, respond, logger }) => {
     const input = command.text?.trim();
 
     if (!input) {
-      await respond('Usage: `/artefact <artefact-id-or-url>`');
+      await respond('Usage: `/klee <artefact-id-or-url>`');
       return;
     }
 

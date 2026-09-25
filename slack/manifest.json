@@ -31,8 +31,8 @@
         "should_escape": false
       },
       {
-        "command": "/artefact",
-        "description": "Renders an artefact from Klee",
+        "command": "/klee",
+        "description": "Posts a preview of a Klee artefact",
         "usage_hint": "<artefact-id-or-url>",
         "should_escape": false
       }

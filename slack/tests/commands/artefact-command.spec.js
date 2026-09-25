@@ -61,6 +61,37 @@ describe('artefact command', () => {
     );
   });
 
+  it('accepts the short and full-screen artefact urls', async () => {
+    for (const text of [
+      'https://klee.work/artefacts/4868e69f-ff8c-4d64-922f-363f39357fe9',
+      'https://klee.work/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9/full',
+    ]) {
+      fakeRespond.mock.resetCalls();
+      await artefactCommandCallback({ command: { text }, ack: fakeAck, respond: fakeRespond, logger: fakeLogger });
+      assert.strictEqual(
+        fakeRespond.mock.calls[0].arguments[0].text,
+        'https://klee.work/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9',
+      );
+    }
+  });
+
+  it('accepts links on the www address', async () => {
+    await artefactCommandCallback({
+      command: {
+        text: 'https://www.klee.work/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9',
+      },
+      ack: fakeAck,
+      respond: fakeRespond,
+      logger: fakeLogger,
+    });
+
+    const callArgs = fakeRespond.mock.calls[0].arguments[0];
+    assert.strictEqual(
+      callArgs.text,
+      'https://klee.work/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9',
+    );
+  });
+
   it('renders the artefact url when given the non-shared url', async () => {
     await artefactCommandCallback({
       command: {

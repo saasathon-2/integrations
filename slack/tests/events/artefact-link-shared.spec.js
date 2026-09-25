@@ -12,13 +12,13 @@ describe('artefact link shared event', () => {
   });
 
   it('unfurls a shared artefact link with the preview blocks', async () => {
-    const sharedUrl = 'https://www.orcastrate.net/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9';
+    const sharedUrl = 'https://klee.work/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9';
 
     await artefactLinkSharedCallback({
       event: {
         channel: 'C123',
         message_ts: '1234.5678',
-        links: [{ url: sharedUrl, domain: 'orcastrate.net' }],
+        links: [{ url: sharedUrl, domain: 'klee.work' }],
       },
       client: fakeClient,
       logger: fakeLogger,
@@ -32,13 +32,13 @@ describe('artefact link shared event', () => {
   });
 
   it('unfurls a non-shared-format artefact link the same way', async () => {
-    const nonSharedUrl = 'https://www.orcastrate.net/?artefact=4868e69f-ff8c-4d64-922f-363f39357fe9';
+    const nonSharedUrl = 'https://klee.work/?artefact=4868e69f-ff8c-4d64-922f-363f39357fe9';
 
     await artefactLinkSharedCallback({
       event: {
         channel: 'C123',
         message_ts: '1234.5678',
-        links: [{ url: nonSharedUrl, domain: 'orcastrate.net' }],
+        links: [{ url: nonSharedUrl, domain: 'klee.work' }],
       },
       client: fakeClient,
       logger: fakeLogger,
@@ -54,7 +54,7 @@ describe('artefact link shared event', () => {
       event: {
         channel: 'C123',
         message_ts: '1234.5678',
-        links: [{ url: 'https://www.orcastrate.net/other-page', domain: 'orcastrate.net' }],
+        links: [{ url: 'https://klee.work/other-page', domain: 'klee.work' }],
       },
       client: fakeClient,
       logger: fakeLogger,
@@ -74,7 +74,7 @@ describe('artefact link shared event', () => {
         channel: 'C123',
         message_ts: '1234.5678',
         links: [
-          { url: 'https://www.orcastrate.net/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9' },
+          { url: 'https://klee.work/artefacts/shared/4868e69f-ff8c-4d64-922f-363f39357fe9' },
         ],
       },
       client: fakeClient,

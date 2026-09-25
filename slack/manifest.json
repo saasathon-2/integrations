@@ -32,13 +32,13 @@
       },
       {
         "command": "/artefact",
-        "description": "Renders an artefact from Orcastrate",
+        "description": "Renders an artefact from Klee",
         "usage_hint": "<artefact-id-or-url>",
         "should_escape": false
       }
     ],
     "unfurl_domains": [
-      "orcastrate.net"
+      "klee.work"
     ]
   },
   "oauth_config": {

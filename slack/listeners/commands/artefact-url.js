@@ -1,4 +1,4 @@
-const ARTEFACT_HOST = 'www.orcastrate.net';
+const ARTEFACT_HOST = 'klee.work';
 const ARTEFACT_BASE_URL = `https://${ARTEFACT_HOST}/artefacts/shared`;
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 

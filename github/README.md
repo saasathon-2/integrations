@@ -30,4 +30,4 @@ jobs:
           pull-request: ${{ github.event.pull_request.number }}
 ```
 
-`api-url` must exactly match the API's `BETTER_AUTH_URL`, without a trailing slash. The Action uses GitHub's short-lived OIDC token, so users do not add an Klee secret to their repositories.
+`api-url` is the public API origin, without a trailing slash. The Action uses GitHub's short-lived OIDC token, so users do not add a Klee secret to their repositories.

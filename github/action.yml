@@ -27,18 +27,18 @@ runs:
                     try {
                       const response = await fetch(url, options);
                       if (response.ok || response.status < 500) return response;
-                      error = new Error(`request failed (${response.status})`);
+                      error = new Error(`request failed (${response.status}): ${await response.text()}`);
                     } catch (cause) {
                       error = cause;
                     }
-                    if (attempt < 3) await new Promise(resolve => setTimeout(resolve, attempt * 1000));
+                    if (attempt < 3) await new Promise(resolve => setTimeout(resolve, attempt * 2000));
                   }
                   throw error;
                 }
                 const requestUrl = new URL(process.env.ACTIONS_ID_TOKEN_REQUEST_URL);
                 requestUrl.searchParams.set("audience", process.env.API_URL);
                 const oidc = await fetchWithRetry(requestUrl, { headers: { Authorization: `Bearer ${process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN}` } }).then(response => response.ok ? response.json() : Promise.reject(new Error(`GitHub OIDC request failed (${response.status})`)));
-                const response = await fetch(`${process.env.API_URL}/api/integrations/github/actions/artefacts`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: oidc.value, pullRequest: Number(process.env.PULL_REQUEST) }) });
+                const response = await fetchWithRetry(`${process.env.API_URL}/api/integrations/github/actions/artefacts`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: oidc.value, pullRequest: Number(process.env.PULL_REQUEST) }) });
                 if (!response.ok) throw new Error(`klee request failed (${response.status}): ${await response.text()}`);
                 const artefact = await response.json();
                 await require("node:fs").promises.appendFile(process.env.GITHUB_OUTPUT, `artefact-url=${artefact.url}\n`);

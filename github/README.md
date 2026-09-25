@@ -4,7 +4,7 @@ This Action creates an Orcastrate artefact for a pull request and comments its s
 
 ## App setup
 
-Configure the GitHub App with `Issues: Read and write` and `Checks: Read-only`, a setup URL of `https://<api-domain>/api/integrations/github/setup`, and a webhook URL of `https://<api-domain>/api/integrations/github/webhook`. Subscribe it to the `Check run` webhook event. The Orcastrate API needs `GITHUB_APP_ID`, `GITHUB_PRIVATE_KEY`, and `GITHUB_WEBHOOK_SECRET`. Each user installs the App from their Orcastrate profile and selects the repositories it may access.
+Configure the GitHub App with `Issues: Read and write`, `Pull requests: Read-only`, and `Checks: Read-only`, a setup URL of `https://<api-domain>/api/integrations/github/setup`, and a webhook URL of `https://<api-domain>/api/integrations/github/webhook`. Subscribe it to the `Check run` webhook event. The Orcastrate API needs `GITHUB_APP_ID`, `GITHUB_PRIVATE_KEY`, and `GITHUB_WEBHOOK_SECRET`. Each user installs the App from their Orcastrate profile and selects the repositories it may access. The workflow below also refreshes the artefact when a PR CI workflow completes, so it remains current if a check-run delivery is missed.
 
 ## Workflow
 

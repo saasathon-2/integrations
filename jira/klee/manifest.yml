@@ -1,0 +1,28 @@
+modules:
+  jira:issuePanel:
+    - key: klee-artefact-panel
+      resource: main
+      resolver:
+        function: resolver
+      viewportSize: large
+      title: Klee
+      icon: resource:main;kleelogo.svg
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/artefact-panel/build
+permissions:
+  scopes:
+    - read:jira-work
+  external:
+    # Lets the panel embed Klee artefacts in an iframe (added to the CSP frame-src).
+    frames:
+      - address: https://klee.work
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/8f8e9b0e-4473-4152-a6a1-56cdbbb5f1dd

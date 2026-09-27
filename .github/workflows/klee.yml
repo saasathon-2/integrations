@@ -1,0 +1,24 @@
+name: Klee artefact
+
+on:
+    workflow_call:
+        inputs:
+            api-url:
+                description: Public Klee API URL, without a trailing slash.
+                required: true
+                type: string
+            pull-request:
+                description: Pull request number.
+                required: true
+                type: string
+
+jobs:
+    generate-artefact:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+        steps:
+            - uses: saasathon-2/integrations/github@main
+              with:
+                  api-url: ${{ inputs.api-url }}
+                  pull-request: ${{ inputs.pull-request }}

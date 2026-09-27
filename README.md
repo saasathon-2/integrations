@@ -14,7 +14,7 @@ The Slack and Jira apps accept any Klee artefact link: shared (`/artefacts/share
 
 Only shared artefacts render outside Klee. A private one shows Klee's "not shared" page.
 
-## Using the GitHub Action
+## Using the GitHub workflow
 
 ```yaml
 on: pull_request
@@ -24,12 +24,10 @@ permissions:
 
 jobs:
   klee:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: saasathon-2/integrations/github@main
-        with:
-          api-url: https://<api-domain>
-          pull-request: ${{ github.event.pull_request.number }}
+    uses: saasathon-2/integrations/.github/workflows/klee.yml@main
+    with:
+      api-url: https://<api-domain>
+      pull-request: ${{ github.event.pull_request.number }}
 ```
 
-The Action authenticates with GitHub's OIDC token, so repositories need no Klee secret. See [`github/README.md`](github/README.md) for GitHub App setup and forked pull requests.
+The workflow authenticates with GitHub's OIDC token, so repositories need no Klee secret. See [`github/README.md`](github/README.md) for GitHub App setup and forked pull requests.
